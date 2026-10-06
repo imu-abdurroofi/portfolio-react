@@ -6,90 +6,67 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: #0f172a;
+  background: linear-gradient(135deg, #0a0f1e 0%, #0d1b3e 50%, #0a1628 100%);
   overflow: hidden;
+  transition: transform 0.7s cubic-bezier(0.76, 0, 0.24, 1), opacity 0.7s ease;
 }
 
-.loading-screen.exit {
-  animation: fadeOut 0.6s ease forwards;
+/* Decorative animated dots in background */
+.loading-screen::before,
+.loading-screen::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  background: #3b82f6;
+  opacity: 0.15;
+  animation: dotPulse 2s ease-in-out infinite;
 }
 
-@keyframes fadeOut {
-  to {
-    opacity: 0;
-    pointer-events: none;
-  }
+.loading-screen::before {
+  width: 10px;
+  height: 10px;
+  top: 20%;
+  left: 10%;
 }
 
-.loading-logo {
-  font-size: 3rem;
-  font-weight: 900;
-  background: linear-gradient(135deg, #3b82f6, #60a5fa, #a78bfa);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: pulse 1.5s ease-in-out infinite;
-  letter-spacing: -1px;
+.loading-screen::after {
+  width: 12px;
+  height: 12px;
+  bottom: 25%;
+  right: 25%;
+  animation-delay: 1s;
 }
 
-@keyframes pulse {
+@keyframes dotPulse {
   0%, 100% {
     transform: scale(1);
-    opacity: 1;
+    opacity: 0.15;
   }
   50% {
-    transform: scale(1.05);
-    opacity: 0.8;
+    transform: scale(1.5);
+    opacity: 0.35;
   }
 }
 
-.loading-bar-container {
-  margin-top: 32px;
-  width: 200px;
-  height: 3px;
-  background: rgba(59, 130, 246, 0.15);
-  border-radius: 3px;
-  overflow: hidden;
+/* Custom styling for LatticeLoader inside loading screen */
+.loading-screen .lattice-loader {
+  font-size: 18px;
+  color: #e5e7eb;
 }
 
-.loading-bar {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, #3b82f6, #60a5fa);
-  border-radius: 3px;
-  animation: loadProgress 2s ease-in-out forwards;
+.loading-screen .lattice-loader__label {
+  font-weight: 600;
+  letter-spacing: 0.05em;
 }
 
-@keyframes loadProgress {
-  to {
-    width: 100%;
+@media (max-width: 768px) {
+  .loading-screen .lattice-loader {
+    font-size: 16px;
   }
-}
-
-.loading-text {
-  margin-top: 16px;
-  font-size: 0.85rem;
-  color: #64748b;
-  letter-spacing: 2px;
-  text-transform: uppercase;
 }
 
 @media (max-width: 480px) {
-  .loading-logo {
-    font-size: 2rem;
-  }
-
-  .loading-bar-container {
-    width: 160px;
-  }
-}
-
-@media (max-width: 320px) {
-  .loading-logo {
-    font-size: 1.6rem;
-  }
-
-  .loading-bar-container {
-    width: 120px;
+  .loading-screen .lattice-loader {
+    font-size: 14px;
   }
 }

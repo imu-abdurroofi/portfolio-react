@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FiCheck } from 'react-icons/fi'
+import Galaxy from '../components/Galaxy'
 import '../styles/Login.css'
 
 const roles = [
@@ -121,11 +122,27 @@ export default function Login() {
 
   return (
     <div className="login-page">
-      <div className="login-grid"></div>
-      <div className="login-aurora"></div>
-      <div className="login-aurora login-aurora-2"></div>
-      <div className="login-aurora login-aurora-3"></div>
-      <div className="login-glow"></div>
+      {/* Galaxy Background */}
+      <div className="login-galaxy-bg">
+        <Galaxy
+          mouseRepulsion
+          mouseInteraction
+          density={1}
+          glowIntensity={0.3}
+          saturation={0}
+          hueShift={210}
+          twinkleIntensity={0.3}
+          rotationSpeed={0.1}
+          repulsionStrength={2}
+          autoCenterRepulsion={0}
+          starSpeed={0.5}
+          speed={1}
+          transparent={true}
+        />
+      </div>
+
+      {/* Overlay gradient untuk blend dengan portfolio colors */}
+      <div className="login-galaxy-overlay"></div>
 
       <div className={`login-card-wrapper ${success ? 'success' : ''}`}>
         <div
