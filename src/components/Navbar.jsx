@@ -29,7 +29,22 @@ export default function Navbar() {
 
   useEffect(() => {
     setMobileOpen(false)
+    // Close mobile menu on route change
+    document.body.style.overflow = 'auto'
   }, [location])
+
+  useEffect(() => {
+    // Prevent body scroll when mobile menu is open
+    if (mobileOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'auto'
+    }
+
+    return () => {
+      document.body.style.overflow = 'auto'
+    }
+  }, [mobileOpen])
 
   const handleLogout = () => {
     localStorage.removeItem('isLoggedIn')
@@ -57,19 +72,20 @@ export default function Navbar() {
         </button>
 
         <AnimatePresence>
-          {mobileOpen && (
+          {mobileOpen && window.innerWidth <= 768 && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.2 }}
               className="navbar-overlay"
               onClick={() => setMobileOpen(false)}
               style={{
                 position: 'fixed',
                 inset: 0,
-                background: 'rgba(0,0,0,0.5)',
-                zIndex: 999,
+                background: 'rgba(0,0,0,0.6)',
+                zIndex: 1000,
+                backdropFilter: 'blur(2px)',
               }}
             />
           )}
